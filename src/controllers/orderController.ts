@@ -2,18 +2,21 @@ import { Request, Response } from 'express';
 import Order from '../models/Order';
 import Product from '../models/Product';
 import { notifyKitchen } from '../app';
+import Table from '../models/Table';
 
 export const createOrder = async (req: Request, res: Response) => {
   const { mesa, produtos, total, atendente } = req.body;
 
   try {
-    const order = new Order({ mesa, produtos, total, atendente });
-    await order.save();
-    await order.atualizarEstoque();
-    notifyKitchen(order); // Notificar a cozinha
-    res.status(201).json(order);
+    const newOrder = new Order({ mesa, produtos, total, atendente });
+    await newOrder.save();
+
+    // Atualizar o status da mesa para 'occupied'
+    await Table.findByIdAndUpdate(mesa, { status: 'occupied' });
+
+    res.status(201).json(newOrder);
   } catch (err) {
-    console.error((err as Error).message);
+    console.error(err);
     res.status(500).send('Server error');
   }
 };
