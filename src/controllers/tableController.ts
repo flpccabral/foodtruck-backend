@@ -23,3 +23,19 @@ export const createTable = async (req: Request, res: Response) => {
     res.status(500).send('Server error');
   }
 };
+
+export const updateTableStatus = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const table = await Table.findByIdAndUpdate(id, { status }, { new: true });
+    if (!table) {
+      return res.status(404).json({ msg: 'Table not found' });
+    }
+    res.json(table);
+  } catch (err) {
+    console.error((err as Error).message);
+    res.status(500).send('Server error');
+  }
+};
