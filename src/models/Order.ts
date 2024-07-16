@@ -2,7 +2,7 @@ import { Schema, model, Document, Types } from 'mongoose';
 import Product from './Product';
 
 export interface IOrder extends Document {
-  mesa: number;
+  mesa: Schema.Types.ObjectId;
   produtos: Array<{ produto: Types.ObjectId; quantidade: number }>;
   total: number;
   status: 'pendente' | 'preparando' | 'pronto' | 'entregue';
@@ -12,7 +12,7 @@ export interface IOrder extends Document {
 }
 
 const OrderSchema = new Schema<IOrder>({
-  mesa: { type: Number, required: true },
+  mesa: { type: Schema.Types.ObjectId, ref: 'Table', required: true },
   produtos: [
     {
       produto: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
