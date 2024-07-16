@@ -8,6 +8,7 @@ import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 import reportRoutes from './routes/reportRoutes';
 import establishmentRoutes from './routes/establishmentRoutes';
+import tableRoutes from './routes/tableRoutes';
 import { IOrder } from './models/Order';
 
 const app = express();
@@ -20,7 +21,6 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
-  console.log('Headers:', req.headers);
   next();
 });
 
@@ -29,11 +29,12 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/establishments', establishmentRoutes);
+app.use('/api/tables', tableRoutes); // Adiciona as rotas de mesas
 
 app.get('/', (req, res) => res.send('API Running'));
 
-const PORT = process.env.PORT || 5000;
-server.listen({ port: PORT, host: '0.0.0.0' }, () => console.log(`Server started on port ${PORT}`));
+const PORT = process.env.PORT || 80;
+server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 // WebSocket para notificar a cozinha
 io.on('connection', (socket) => {
