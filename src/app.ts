@@ -9,6 +9,7 @@ import orderRoutes from './routes/orderRoutes';
 import reportRoutes from './routes/reportRoutes';
 import establishmentRoutes from './routes/establishmentRoutes';
 import tableRoutes from './routes/tableRoutes';
+import categoryRoutes from './routes/categoryRoutes'; // Importar as rotas de categorias
 import { IOrder } from './models/Order';
 
 const app = express();
@@ -29,7 +30,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/establishments', establishmentRoutes);
-app.use('/api/tables', tableRoutes); // Adiciona as rotas de mesas
+app.use('/api/tables', tableRoutes);
+app.use('/api/categories', categoryRoutes); // Adicionar as rotas de categorias
 
 app.get('/', (req, res) => res.send('API Running'));
 
