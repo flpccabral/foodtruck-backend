@@ -21,7 +21,7 @@ const OrderSchema = new Schema<IOrder>({
   quantidadePessoas: { type: Number, default: 1 },
   itens: [
     {
-      produto: { type: Schema.Types.ObjectId, ref: 'Produto', required: true },
+      produto: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
       quantidade: { type: Number, required: true }
     }
   ],
