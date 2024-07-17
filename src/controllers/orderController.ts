@@ -6,7 +6,18 @@ export const createOrder = async (req: Request, res: Response) => {
   const { mesa, cliente, observacoes, quantidadePessoas, itens, total, atendente } = req.body;
 
   try {
-    const newOrder = new Order({ mesa, cliente, observacoes, quantidadePessoas, itens, total, atendente });
+    const newOrder = new Order({
+      mesa,
+      cliente,
+      observacoes,
+      quantidadePessoas,
+      itens: itens.map((item: any) => ({
+        produto: item.produto,
+        quantidade: item.quantidade,
+      })),
+      total,
+      atendente,
+    });
     await newOrder.save();
 
     // Atualizar o status da mesa para 'occupied'
