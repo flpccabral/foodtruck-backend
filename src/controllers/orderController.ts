@@ -32,7 +32,9 @@ export const createOrder = async (req: Request, res: Response) => {
 
 export const getOrders = async (req: Request, res: Response) => {
   try {
-    const orders = await Order.find().populate('atendente itens.produto');
+    const { mesa } = req.query;
+    const query = mesa ? { mesa } : {};
+    const orders = await Order.find(query).populate('atendente itens.produto');
     res.json(orders);
   } catch (err) {
     console.error((err as Error).message);
