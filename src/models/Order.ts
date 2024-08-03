@@ -26,7 +26,7 @@ const OrderSchema = new Schema<IOrder>({
     }
   ],
   total: { type: Number, required: true },
-  status: { type: String, enum: ['pendente', 'preparando', 'pronto', 'entregue'], default: 'pendente' },
+  status: { type: String, enum: ['pendente', 'preparando', 'finalizado', 'entregue'], default: 'pendente' },
   atendente: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   criadoEm: { type: Date, default: Date.now }
 });
