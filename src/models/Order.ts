@@ -8,7 +8,7 @@ export interface IOrder extends Document {
   quantidadePessoas: number;
   itens: Array<{ produto: Types.ObjectId; quantidade: number }>;
   total: number;
-  status: 'pendente' | 'preparando' | 'pronto' | 'entregue' | 'cancelado';
+  status: 'pendente' | 'preparando' | 'finalizado' | 'entregue' | 'cancelado';
   atendente: Types.ObjectId;
   criadoEm: Date;
   atualizarEstoque(): Promise<void>;
